@@ -41,7 +41,7 @@ namespace DDSaveBackup.Console
                 {
                     commands[args[0]].Invoke(args.ToArray());
                 }
-                catch (Exception e)
+                catch
                 {
                     Logger.Log(LogLevel.Error,"Exception returns for command");
                 }
