@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
+using DDSaveBackup.Log;
+using DDSaveBackup.UI;
 
 namespace DDSaveBackup
 {
@@ -13,5 +9,14 @@ namespace DDSaveBackup
     /// </summary>
     public partial class App : Application
     {
+        void App_Startup(object sender, StartupEventArgs e)
+        {
+            Logger.Log(LogLevel.Info,"App started");
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
+            var mainModel = new MainWindowModel(mainWindow);
+            mainWindow.SetDataContext(mainModel);
+            Logger.MainModel = mainModel;           
+        }
     }
 }
