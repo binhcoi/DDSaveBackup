@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -14,18 +13,18 @@ namespace DDSaveBackup
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
-    {      
+    {
 
         private MainWindowModel model;
         public MainWindow()
-        {            
-            InitializeComponent();            
+        {
+            InitializeComponent();
         }
 
         public void SetDataContext(MainWindowModel model)
         {
             this.model = model;
-            DataContext = model;            
+            DataContext = model;
         }
 
         public void AppendLog(string message, SolidColorBrush color)
@@ -71,5 +70,60 @@ namespace DDSaveBackup
 
         }
 
+        private void SaveFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                dialog.SelectedPath = model.SaveFolderText;
+                var result = dialog.ShowDialog();
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    model.SaveFolderText = dialog.SelectedPath;
+                }
+            }
+        }
+
+        private void BackUpFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                dialog.SelectedPath = model.BackUpFolderText;
+                var result = dialog.ShowDialog();
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    model.BackUpFolderText = dialog.SelectedPath;
+                }
+            }
+        }
+
+        private void RestoreSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                dialog.SelectedPath = model.BackUpFolderText;
+                var result = dialog.ShowDialog();
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    model.RestoreSaveFile(dialog.SelectedPath);
+                }
+            }
+        }
+
+        private void BackUpSaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            model.BackUpSave();
+        }
+        private void BackUpToFolderButton_Click(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                dialog.SelectedPath = model.BackUpFolderText;
+                var result = dialog.ShowDialog();
+                if (result == System.Windows.Forms.DialogResult.OK)
+                {
+                    model.BackUpSaveToFolder(dialog.SelectedPath);
+                }
+            }
+        }
     }
 }
