@@ -16,7 +16,8 @@ namespace DDSaveBackup
             mainWindow.Show();
             var mainModel = new MainWindowModel(mainWindow);
             mainWindow.SetDataContext(mainModel);
-            Logger.MainModel = mainModel;           
+            Logger.MainModel = mainModel;    
+            Logger.Log(LogLevel.Info,"App running");
         }
     }
 }

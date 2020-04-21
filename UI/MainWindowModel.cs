@@ -1,17 +1,22 @@
 using System.Windows.Input;
 using System.Windows.Media;
+using DDSaveBackup.Config;
 using DDSaveBackup.Console;
+using DDSaveBackup.Core;
 
 namespace DDSaveBackup.UI
 {
     public class MainWindowModel : Bindable
     {
         private CommandCenter commandCenter;
+        private SaveManager saveManager;
         private MainWindow mainWindow;
         private int commandOffset = 0;        
         public MainWindowModel(MainWindow window)
         {
-            commandCenter = new CommandCenter();
+            saveManager = new SaveManager(AppConfig.DefaultSaveLocation,AppConfig.BackUpLocation, AppConfig.FileToWatch);
+            commandCenter = new CommandCenter(saveManager);
+            
             mainWindow = window;
             CommandInputText = string.Empty;           
         }
