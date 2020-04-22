@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using DDSaveBackup.Log;
 using DDSaveBackup.UI;
+using DDSaveBackup.Config;
 
 namespace DDSaveBackup
 {
@@ -11,13 +12,14 @@ namespace DDSaveBackup
     {
         void App_Startup(object sender, StartupEventArgs e)
         {
-            Logger.Log(LogLevel.Info,"App started");
+            AppConfig.Load();
             var mainWindow = new MainWindow();
             mainWindow.Show();
             var mainModel = new MainWindowModel(mainWindow);
             mainWindow.SetDataContext(mainModel);
-            Logger.MainModel = mainModel;    
-            Logger.Log(LogLevel.Info,"App running");
+            Logger.MainModel = mainModel;
+            Logger.Log(LogLevel.Info, "App started");
+
         }
     }
 }
